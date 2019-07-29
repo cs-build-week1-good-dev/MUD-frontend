@@ -1,6 +1,13 @@
 export const AUTH_TOKEN = "mud-token";
 export const BASE_URL = "https://lambda-mud-test.herokuapp.com/api";
 
+export const getAuthHeaders = () => {
+  let token = localStorage.getItem(AUTH_TOKEN);
+  return {
+    Authorization: `Token ${token}`
+  };
+};
+
 export const theme = {
   main: "#990066",
   darkMain: "#54354A",
