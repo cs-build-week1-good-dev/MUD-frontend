@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { initiateLogin } from "../../actions";
+import { doLogin } from "../../actions";
 import styled from "styled-components";
 // import Error from "../../components/Error";
 import {
@@ -11,14 +11,14 @@ import {
   ButtonSmallSubtle,
   colors
 } from "../../styles";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password1: ""
     };
   }
 
@@ -28,15 +28,18 @@ class Login extends Component {
 
   handleLogin = event => {
     event.preventDefault();
-    this.props
-      .login({
-        username: this.state.username,
-        password: this.state.password
-      })
-      .then(() => this.props.authenticated && this.props.history.push("/home"));
+    this.props.doLogin({
+      username: this.state.username,
+      password: this.state.password1
+    });
+    //     .then(() => this.props.authenticated && this.props.history.push("/home"));
   };
 
   render() {
+    if (this.props.token) {
+      return <Redirect to="/adv" />;
+    }
+
     return (
       <CenteredDiv>
         <AuthCard>
@@ -52,7 +55,7 @@ class Login extends Component {
             <StyledInput
               type="password"
               placeholder="Password"
-              name="password"
+              name="password1"
               value={this.state.password}
               onChange={this.handleChanges}
             />{" "}
@@ -73,11 +76,15 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = () => {};
+const mapStateToProps = state => {
+  return {
+    token: state.login.token
+  };
+};
 
 export default connect(
   mapStateToProps,
-  { initiateLogin }
+  { doLogin }
 )(Login);
 
 const StyledForm = styled.form`

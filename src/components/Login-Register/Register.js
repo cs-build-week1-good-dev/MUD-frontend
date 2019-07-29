@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { register } from "../../services/session/actions";
+import { doRegister } from "../../actions";
 import styled from "styled-components";
 // import Error from "../../components/Error";
 import {
@@ -18,7 +18,7 @@ class Register extends Component {
     super(props);
     this.state = {
       username: "",
-      password: "",
+      password1: "",
       password2: ""
     };
   }
@@ -29,13 +29,12 @@ class Register extends Component {
 
   handleRegister = event => {
     event.preventDefault();
-    this.props
-      .register({
-        username: this.state.username,
-        password: this.state.password,
-        password2: this.state.password2
-      })
-      .then(() => this.props.authenticated && this.props.history.push("/home"));
+    this.props.doRegister({
+      username: this.state.username,
+      password1: this.state.password1,
+      password2: this.state.password2
+    });
+    //       .then(() => this.props.authenticated && this.props.history.push("/home"));
   };
 
   render() {
@@ -54,7 +53,7 @@ class Register extends Component {
             <StyledInput
               type="password"
               placeholder="Create Password"
-              name="password"
+              name="password1"
               value={this.state.password}
               onChange={this.handleChanges}
             />{" "}
@@ -84,7 +83,7 @@ const mapStateToProps = () => {};
 
 export default connect(
   mapStateToProps,
-  {}
+  { doRegister }
 )(Register);
 
 const StyledForm = styled.form`
