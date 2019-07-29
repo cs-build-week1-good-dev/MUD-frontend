@@ -1,5 +1,5 @@
-export const AUTH_TOKEN = "";
-export const BASE_URL = "";
+export const AUTH_TOKEN = "mud-token";
+export const BASE_URL = "https://lambda-mud-test.herokuapp.com/api";
 
 export const theme = {
   main: "#990066",
