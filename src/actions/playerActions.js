@@ -56,3 +56,29 @@ export const movePlayer = direction => dispatch => {
       });
     });
 };
+
+// PLAYER_SAYS, PLAYER_SAYS_SUCCESS, PLAYER_SAYS_FAILURE
+export const PLAYER_SAYS = "PLAYER_SAYS";
+export const PLAYER_SAYS_SUCCESS = "PLAYER_SAYS_SUCCESS";
+export const PLAYER_SAYS_FAILURE = "PLAYER_SAYS_FAILURE";
+
+export const playerSays = message => dispatch => {
+  dispatch({
+    type: PLAYER_SAYS
+  });
+
+  axios
+    .post(`${BASE_URL}/adv/say`, { message }, getAuthHeaders())
+    .then(res => {
+      dispatch({
+        type: PLAYER_SAYS_SUCCESS,
+        payload: res.status
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: PLAYER_SAYS_FAILURE,
+        error: err
+      });
+    });
+};
