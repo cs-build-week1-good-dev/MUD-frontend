@@ -18,10 +18,11 @@ export const doLogin = creds => dispatch => {
   axios
     .post(`${BASE_URL}/login/`, { username, password })
     .then(res => {
-      localStorage.setItem(AUTH_TOKEN, res.key);
+      console.log(res);
+      localStorage.setItem(AUTH_TOKEN, res.data.key);
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: res.key
+        payload: res.data.key
       });
     })
     .catch(err => {
@@ -40,7 +41,7 @@ export const REGISTER_USER_FAILURE = "REGISTER_USER_FAILURE";
 
 export const doRegister = creds => dispatch => {
   const { username, password1, password2 } = creds;
-
+  console.log({ username, password1, password2 });
   dispatch({
     type: REGISTER_USER
   });
@@ -48,14 +49,14 @@ export const doRegister = creds => dispatch => {
   axios
     .post(`${BASE_URL}/registration/`, { username, password1, password2 })
     .then(res => {
-      localStorage.setItem(AUTH_TOKEN, res.key);
+      localStorage.setItem(AUTH_TOKEN, res.data.key);
       dispatch({
         type: REGISTER_USER_SUCCESS,
-        payload: res.key
+        payload: res.data.key
       });
     })
     .catch(err => {
-      console.log("ERROR LOGGING IN:\n", err);
+      console.log("ERROR REGISTERING NEW USER:\n", err);
       dispatch({
         type: REGISTER_USER_FAILURE,
         error: err
