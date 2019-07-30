@@ -11,7 +11,7 @@ export const Card = styled.div.attrs(({ bg, shadow, ...props }) => ({
   background: ${props => props.bg};
   border: 1px solid ${props => props.shadow};
   color: ${colors.white};
-  box-shadow: rgba(0, 0, 0, 0.5) 15px 15px 50px 0px;
+  box-shadow: rgb(145, 39, 39, 0.33) 0px 15px 50px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
