@@ -97,7 +97,7 @@ const StyledForm = styled.form`
 
 const StyledInput = styled.input`
   color: #1a1a1a;
-  font-size: 1rem;
+  font-size: 1.33rem;
   border: none;
   outline: none;
   text-align: center;
@@ -110,7 +110,7 @@ const StyledInput = styled.input`
 
 const StyledH2 = styled.h2`
   color: ${theme1.onyx}
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 0;
   
 `;
