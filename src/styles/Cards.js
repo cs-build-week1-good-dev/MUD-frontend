@@ -9,7 +9,6 @@ export const Card = styled.div.attrs(({ bg, shadow, ...props }) => ({
   padding: 20px;
   border-radius: 10px;
   background: ${props => props.bg};
-  border: 1px solid ${props => props.shadow};
   color: ${colors.white};
   box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.3);
   display: flex;
