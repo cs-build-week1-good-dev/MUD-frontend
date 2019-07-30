@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { doRegister } from "../../actions";
 import styled from "styled-components";
+import { theme1 } from "../../styles/theme.js";
 // import Error from "../../components/Error";
 import {
   AuthCard,
@@ -42,7 +43,7 @@ class Register extends Component {
       <CenteredDiv>
         <AuthCard>
           <StyledForm className="FormRegister">
-            <StyledH2>Muddy Waters Register</StyledH2>
+            <StyledH2>Dope Register</StyledH2>
             <StyledInput
               type="text"
               placeholder="Enter New Username"
@@ -96,11 +97,10 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  background-color: whitesmoke;
-  color: #1a1a1a;
+  /* background-color: ${theme1.teaRose}; */
+  color: ${theme1.onyx};
   font-size: 1rem;
   border: none;
-  font-weight: 100;
   outline: none;
   text-align: center;
   height: 40px;
@@ -111,8 +111,8 @@ const StyledInput = styled.input`
 `;
 
 const StyledH2 = styled.h2`
-  font-family: Copperplate;
+color: ${theme1.onyx}
   font-size: 2rem;
   margin: 0;
-  font-weight: 500;
+
 `;

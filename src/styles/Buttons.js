@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { colors } from "./theme.js";
+import { colors, theme1 } from "./theme.js";
 
 export const Button = styled.button.attrs(({ bg, fg, shadow, ...props }) => ({
   ...props,
-  bg: bg || colors.evening,
-  fg: fg || colors.white,
+  bg: bg || theme1.silverSand,
+  fg: fg || theme1.onyx,
   shadow: shadow || colors.dusk
 }))`
   background: ${props => props.bg};
@@ -22,7 +22,7 @@ export const Button = styled.button.attrs(({ bg, fg, shadow, ...props }) => ({
   transition: box-shadow 0.3s;
   position: relative;
   &:hover {
-    box-shadow: 0 0 10px ${props => props.shadow} inset;
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -35,12 +35,12 @@ export const ButtonSmall = styled(Button)`
 
 export const ButtonSmallSubtle = styled(ButtonSmall)`
   background: transparent;
-  color: ${colors.thunderhead};
+  color: ${theme1.onyx};
   transition: background 0.2s, color 0.2s;
   font-weight: normal;
   &:hover {
     background: ${props => props.bg};
-    color: ${colors.white};
+    color: ${theme1.onyx};
     box-shadow: none;
   }
 `;
