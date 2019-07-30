@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import MainPage from "/Users/FW_Digital_Media/Documents/git/computerscience/CS-Build-Week/mud-frontend/src/components/main/MainPage.js";
+import styled from "styled-components";
+import WorldMap from "../main/WorldMap";
+import ActionBar from "../main/ActionBar";
+
 class MainView extends Component {
   render() {
     let isLogged = false;
@@ -10,18 +13,10 @@ class MainView extends Component {
       isLogged = false;
     }
     return (
-      <div
-        style={{
-          background: "black",
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <MainPage {...this.props} />
-      </div>
+      <Main>
+        <WorldMap />
+        <ActionBar />
+      </Main>
     );
   }
 }
@@ -29,3 +24,13 @@ class MainView extends Component {
 const mapStateToProps = state => ({});
 
 export default connect(mapStateToProps)(MainView);
+
+const Main = styled.div`
+  background: black;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
