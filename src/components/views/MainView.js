@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import WorldMap from "../main/WorldMap";
@@ -7,12 +7,6 @@ import BottomBar from "../main/ActionBar";
 
 class MainView extends Component {
   render() {
-    let isLogged = false;
-    if (localStorage.getItem("key")) {
-      isLogged = true;
-    } else {
-      isLogged = false;
-    }
     return (
       <Main>
         <div className="left">

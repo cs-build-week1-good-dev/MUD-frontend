@@ -15,7 +15,7 @@ export default function(props) {
       />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      <Route path="/adv" component={MainView} />
+      <PrivateRoute path="/adv" component={MainView} />
     </div>
   );
 }

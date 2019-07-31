@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL, getAuthHeaders } from "../config";
+import { arrayToGraph, forEachNode } from "../utils/rooms";
 
 // INIT_PLAYER, INIT_PLAYER_SUCCESS, INIT_PLAYER_FAILURE
 export const INIT_PLAYER = "INIT_PLAYER";
@@ -96,12 +97,20 @@ export const getRooms = () => dispatch => {
   axios
     .get(`${BASE_URL}/adv/rooms`, getAuthHeaders())
     .then(res => {
+      const rooms = res.data.rooms;
+      const data = typeof rooms === "string" ? JSON.parse(rooms) : null;
+      console.log(data);
+
+      forEachNode(arrayToGraph(data));
+
       dispatch({
         type: GET_ROOMS_SUCCESS,
-        payload: res.data.rooms
+        payload: arrayToGraph(data)
       });
     })
     .catch(err => {
+      console.log(err);
+      throw new Error(err);
       dispatch({
         type: GET_ROOMS_FAILURE,
         error: err

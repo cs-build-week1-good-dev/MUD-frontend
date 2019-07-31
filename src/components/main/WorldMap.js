@@ -7,13 +7,22 @@ import { getRooms } from "../../actions";
 import { theme1 } from "../../styles/theme";
 
 function MainPage(props) {
+  const { rooms, getRooms } = props;
+
   useEffect(() => {
     props.getRooms();
-  }, []);
+  }, [getRooms]);
+
+  console.log(rooms);
 
   return (
     <Map>
       <h1>Dis A Nice Map</h1>
+      {rooms ? (
+        rooms.map(room => <div>`JSON.stringify(room)`</div>)
+      ) : (
+        <div>No Rooms?</div>
+      )}
     </Map>
   );
 }
