@@ -4,7 +4,10 @@ import {
   INIT_PLAYER_FAILURE,
   MOVE_PLAYER,
   MOVE_PLAYER_SUCCESS,
-  MOVE_PLAYER_FAILURE
+  MOVE_PLAYER_FAILURE,
+  GET_ROOMS,
+  GET_ROOMS_SUCCESS,
+  GET_ROOMS_FAILURE
 } from "../actions";
 
 const initialState = {
@@ -15,7 +18,9 @@ const initialState = {
   description: "",
   players: [],
   gettingRoom: false,
-  movingPlayer: false
+  movingPlayer: false,
+  rooms: [],
+  gettingRooms: false
 };
 
 export default (state = initialState, action) => {
@@ -56,6 +61,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         movingPlayer: false,
+        error: action.payload
+      };
+    case GET_ROOMS:
+      return {
+        ...state,
+        gettingRooms: true,
+        error: null
+      };
+    case GET_ROOMS_SUCCESS:
+      return {
+        ...state,
+        gettingRooms: false,
+        error: null,
+        rooms: action.payload
+      };
+    case GET_ROOMS_FAILURE:
+      return {
+        ...state,
+        gettingRooms: false,
         error: action.payload
       };
     default:

@@ -82,3 +82,29 @@ export const playerSays = message => dispatch => {
       });
     });
 };
+
+// GET_ROOMS, GET_ROOMS_SUCCESS, GET_ROOMS_FAILURE
+export const GET_ROOMS = "GET_ROOMS";
+export const GET_ROOMS_SUCCESS = "GET_ROOMS_SUCCESS";
+export const GET_ROOMS_FAILURE = "GET_ROOMS_FAILURE";
+
+export const getRooms = () => dispatch => {
+  dispatch({
+    type: GET_ROOMS
+  });
+
+  axios
+    .get(`${BASE_URL}/adv/rooms`, getAuthHeaders())
+    .then(res => {
+      dispatch({
+        type: GET_ROOMS_SUCCESS,
+        payload: res.data.rooms
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ROOMS_FAILURE,
+        error: err
+      });
+    });
+};
