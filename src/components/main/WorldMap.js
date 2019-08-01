@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
@@ -9,20 +9,34 @@ import { theme1 } from "../../styles/theme";
 function MainPage(props) {
   const { rooms, getRooms } = props;
 
+  const worldMap = useRef(null);
+
   useEffect(() => {
-    props.getRooms();
+    getRooms();
   }, [getRooms]);
 
-  console.log(rooms);
+  useEffect(() => {
+    const drawRooms = () => {
+      if (!worldMap.current) {
+        return;
+      }
+      const ctx = worldMap.current.getContext("2d");
+      ctx.fillStyle = "red";
+      for (let room of rooms) {
+        let x = room.x * 20;
+        let y = room.y * 20;
+
+        ctx.fillRect(x, y, 15, 15);
+      }
+    };
+
+    drawRooms();
+  }, [rooms]);
 
   return (
     <Map>
       <h1>Dis A Nice Map</h1>
-      {rooms ? (
-        rooms.map(room => <div>`JSON.stringify(room)`</div>)
-      ) : (
-        <div>No Rooms?</div>
-      )}
+      <canvas ref={worldMap} width={800} height={535} />
     </Map>
   );
 }
