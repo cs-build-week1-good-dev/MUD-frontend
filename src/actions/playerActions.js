@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL, getAuthHeaders } from "../config";
+import { arrayToGraph, forEachNode } from "../utils/rooms";
 
 // INIT_PLAYER, INIT_PLAYER_SUCCESS, INIT_PLAYER_FAILURE
 export const INIT_PLAYER = "INIT_PLAYER";
@@ -12,14 +13,16 @@ export const initializePlayer = () => dispatch => {
   });
 
   axios
-    .get(`${BASE_URL}/adv/init`, getAuthHeaders())
+    .get(`${BASE_URL}/adv/init/`, { headers: getAuthHeaders() })
     .then(res => {
+      console.log(res);
       dispatch({
         type: INIT_PLAYER_SUCCESS,
-        payload: res
+        payload: res.data
       });
     })
     .catch(err => {
+      console.log(err);
       dispatch({
         type: INIT_PLAYER_FAILURE,
         error: err
@@ -42,11 +45,12 @@ export const movePlayer = direction => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/adv/move`, { direction }, getAuthHeaders())
+    .post(`${BASE_URL}/adv/move/`, { direction }, { headers: getAuthHeaders() })
     .then(res => {
+      console.log(res);
       dispatch({
         type: MOVE_PLAYER_SUCCESS,
-        payload: res
+        payload: res.data
       });
     })
     .catch(err => {
@@ -68,7 +72,7 @@ export const playerSays = message => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/adv/say`, { message }, getAuthHeaders())
+    .post(`${BASE_URL}/adv/say/`, { message }, { headers: getAuthHeaders() })
     .then(res => {
       dispatch({
         type: PLAYER_SAYS_SUCCESS,
@@ -82,3 +86,40 @@ export const playerSays = message => dispatch => {
       });
     });
 };
+
+// GET_ROOMS, GET_ROOMS_SUCCESS, GET_ROOMS_FAILURE
+export const GET_ROOMS = "GET_ROOMS";
+export const GET_ROOMS_SUCCESS = "GET_ROOMS_SUCCESS";
+export const GET_ROOMS_FAILURE = "GET_ROOMS_FAILURE";
+
+export const getRooms = () => dispatch => {
+  dispatch({
+    type: GET_ROOMS
+  });
+
+  axios
+    .get(`${BASE_URL}/adv/rooms/`, { headers: getAuthHeaders() })
+    .then(res => {
+      const rooms = res.data;
+      let graphArray = arrayToGraph(rooms);
+
+      dispatch({
+        type: GET_ROOMS_SUCCESS,
+        payload: graphArray
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ROOMS_FAILURE,
+        error: err
+      });
+    });
+};
+// .catch(err => {
+//   console.log(err);
+//   throw new Error(err);
+//   dispatch({
+//     type: GET_ROOMS_FAILURE,
+//     error: err
+//   });
+// });

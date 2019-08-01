@@ -20,3 +20,13 @@ export const colors = {
   brick: "#D95B43",
   pine: "#53777A"
 };
+
+export const theme1 = {
+  teaRose: "#EFC7C2",
+  onyx: "#363946",
+  taupe: "#857C8D",
+  lumber: "#FFE5D4",
+  silverSand: "#BFD3C1",
+  darkSeaGreen: "#92B596",
+  nightGreen: "#000A00"
+};

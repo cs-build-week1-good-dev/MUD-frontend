@@ -1,27 +1,21 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import MainPage from "/Users/FW_Digital_Media/Documents/git/computerscience/CS-Build-Week/mud-frontend/src/components/main/MainPage.js";
+import styled from "styled-components";
+import WorldMap from "../main/WorldMap";
+import SideBar from "../main/MessageBar";
+import BottomBar from "../main/ActionBar";
+
 class MainView extends Component {
   render() {
-    let isLogged = false;
-    if (localStorage.getItem("key")) {
-      isLogged = true;
-    } else {
-      isLogged = false;
-    }
     return (
-      <div
-        style={{
-          background: "black",
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <MainPage {...this.props} />
-      </div>
+      <Main>
+        <div className="left">
+          <WorldMap />
+        </div>
+        <div className="right">
+          <SideBar />
+        </div>
+      </Main>
     );
   }
 }
@@ -29,3 +23,28 @@ class MainView extends Component {
 const mapStateToProps = state => ({});
 
 export default connect(mapStateToProps)(MainView);
+
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: black;
+
+  overflow: none;
+
+  .left {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+  .right {
+    height: 100%;
+    width: 20%;
+    /* min-width: 400px; */
+  }
+`;

@@ -13,12 +13,9 @@ export const doLogin = creds => dispatch => {
     type: LOGIN_USER
   });
 
-  console.log({ username, password });
-  console.log(`${BASE_URL}/login/`);
   axios
     .post(`${BASE_URL}/login/`, { username, password })
     .then(res => {
-      console.log(res);
       localStorage.setItem(AUTH_TOKEN, res.data.key);
       dispatch({
         type: LOGIN_USER_SUCCESS,

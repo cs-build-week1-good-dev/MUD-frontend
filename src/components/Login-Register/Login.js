@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { doLogin } from "../../actions";
 import styled from "styled-components";
+import { theme1 } from "../../styles/theme.js";
 // import Error from "../../components/Error";
 import {
   AuthCard,
@@ -44,7 +45,7 @@ class Login extends Component {
       <CenteredDiv>
         <AuthCard>
           <StyledForm>
-            <StyledH2>Muddy Waters Login</StyledH2>
+            <StyledH2>Dope Login</StyledH2>
             <StyledInput
               type="text"
               placeholder="Username"
@@ -65,9 +66,7 @@ class Login extends Component {
               {this.props.authenticating && <Spinner />}
             </Button>
             <Link to="/register">
-              <ButtonSmallSubtle bg={colors.thunderhead}>
-                register
-              </ButtonSmallSubtle>
+              <ButtonSmallSubtle>register</ButtonSmallSubtle>
             </Link>
           </StyledForm>
         </AuthCard>
@@ -98,7 +97,7 @@ const StyledForm = styled.form`
 
 const StyledInput = styled.input`
   color: #1a1a1a;
-  font-size: 1rem;
+  font-size: 1.33rem;
   border: none;
   outline: none;
   text-align: center;
@@ -110,8 +109,8 @@ const StyledInput = styled.input`
 `;
 
 const StyledH2 = styled.h2`
-  font-family: Copperplate;
-  font-size: 2rem;
+  color: ${theme1.onyx}
+  font-size: 3rem;
   margin: 0;
-  font-weight: 500;
+  
 `;
