@@ -109,8 +109,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledH2 = styled.h2`
-  color: ${theme1.onyx}
+  color: ${theme1.onyx};
   font-size: 3rem;
   margin: 0;
-  
 `;
