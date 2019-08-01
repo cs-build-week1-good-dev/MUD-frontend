@@ -12,11 +12,13 @@ import {
 
 const initialState = {
   error: null,
-  uuid: "",
   name: "",
-  title: "",
-  description: "",
   players: [],
+  room_id: null,
+  title: "",
+  uuid: null,
+  x_coordinate: null,
+  y_coordinate: null,
   gettingRoom: false,
   movingPlayer: false,
   rooms: [],
