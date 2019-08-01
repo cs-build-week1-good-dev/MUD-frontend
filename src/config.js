@@ -8,6 +8,8 @@ export const getAuthHeaders = () => {
   };
 };
 
+export const PUSHER_KEY = "78545976abed979e6c31";
+
 export const theme = {
   main: "#990066",
   darkMain: "#54354A",

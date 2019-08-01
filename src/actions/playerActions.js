@@ -114,3 +114,11 @@ export const getRooms = () => dispatch => {
       });
     });
 };
+// .catch(err => {
+//   console.log(err);
+//   throw new Error(err);
+//   dispatch({
+//     type: GET_ROOMS_FAILURE,
+//     error: err
+//   });
+// });
