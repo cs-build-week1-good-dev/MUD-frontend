@@ -3,46 +3,36 @@ import styled from "styled-components";
 import { theme1 } from "../../styles/theme";
 import ChatWindow from "./ChatWindow";
 import { connect } from "react-redux";
-import { pushMessage } from "../../actions";
+import { pushMessage, movePlayer } from "../../actions";
 
 class ActionBar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "robot124dustinrobo",
-      password1: "testpassword35",
-      password2: "testpassword35"
-    };
+  doMove(event, dir) {
+    event.preventDefault();
+    console.log({ dir });
+    this.props.movePlayer(dir);
   }
+
   render() {
     return (
       <Bar>
-        <div className="Details">
-          <h3>Room Details</h3>
-          <h4>Room name</h4>
-          <p>Issa room with some stuff inna thing and its dope.</p>
+        <div className="details">
+          <h3>In Room</h3>
+          <div>This will be some payer names</div>
         </div>
 
         <ChatWindow props={this.props} />
 
         <div className="actions">
           <div className="top-button">
-            <button>N</button>
+            <button onClick={event => this.doMove(event, "n")}>N</button>
           </div>
           <div className="mid-button">
-            <button>W</button>
+            <button onClick={event => this.doMove(event, "w")}>W</button>
 
-            {/* <div class="triangle-container">
-            <svg>
-              <polygon points="250,60 100,400 400,400" class="triangle" />
-              Sorry, your browser does not support inline SVG.
-            </svg>
-          </div> */}
-
-            <button>E</button>
+            <button onClick={event => this.doMove(event, "e")}>E</button>
           </div>
           <div className="btm-button">
-            <button>S</button>
+            <button onClick={event => this.doMove(event, "s")}>S</button>
           </div>
         </div>
       </Bar>
@@ -58,21 +48,25 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { pushMessage }
+  { pushMessage, movePlayer }
 )(ActionBar);
 
 const Bar = styled.div`
-  color: white;
-  background: ${theme1.taupe};
+  background: ${theme1.nightGreen};
+  color: ${theme1.silverSand};
   height: 100vh;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
+  .details {
+    padding: 10px;
+  }
+
   .actions {
-    background: ${theme1.lumber};
-    color: ${theme1.onyx};
+    background: ${theme1.nightGreen};
+    color: ${theme1.silverSand};
 
     display: flex;
     flex-direction: column;
@@ -86,28 +80,17 @@ const Bar = styled.div`
       text-align: center;
     }
 
-    .triangle-container {
-      text-align: center;
-      border: 1px solid white;
-
-      .triangle {
-        width: 100px;
-        height: 100px;
-        fill: darkorange;
-        stroke: white;
-        stroke-width: 8;
-      }
-    }
-
     button {
       transition: 0.4s ease-in;
       background: rgba(0, 0, 0, 0);
-      border: none;
+      color: ${theme1.silverSand};
+      border: 1px solid ${theme1.silverSand};
+      border-bottom-width: 4px;
+      border-right-width: 4px;
 
       &:hover {
         cursor: pointer;
-        color: ${theme1.darkSeaGreen};
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(255, 255, 255, 0.3);
         box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
       }
     }

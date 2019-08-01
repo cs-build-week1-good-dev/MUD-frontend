@@ -47,9 +47,10 @@ export const movePlayer = direction => dispatch => {
   axios
     .post(`${BASE_URL}/adv/move/`, { direction }, { headers: getAuthHeaders() })
     .then(res => {
+      console.log(res);
       dispatch({
         type: MOVE_PLAYER_SUCCESS,
-        payload: res
+        payload: res.data
       });
     })
     .catch(err => {

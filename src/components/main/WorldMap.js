@@ -34,8 +34,8 @@ function MainPage(props) {
 
     function drawRoom(room) {
       // get room top left coords
-      let x = room.x * (canvas_width / 10);
-      let y = room.y * (canvas_height / 10);
+      let x = room.x * (canvas_width / 10) + 6;
+      let y = room.y * (canvas_height / 10) + 6;
 
       // get center of the room
       let roomCenter = [x + canvas_width / 24, y + canvas_height / 24];
@@ -80,7 +80,7 @@ function MainPage(props) {
 
       let x = loc_x * (canvas_width / 10);
       let y = loc_y * (canvas_height / 10);
-      let [cx, cy] = [x + canvas_width / 24, y + canvas_height / 24];
+      let [cx, cy] = [x + 6 + canvas_width / 24, y + 6 + canvas_height / 24];
 
       // console.log({ cx, cy });
       var gradient = ctx.createRadialGradient(cx, cy, 30, cx, cy, 300);
@@ -108,7 +108,7 @@ function MainPage(props) {
       clear();
       forEachNode(rooms, drawRoom);
       // rooms.forEach(drawRoom);
-      rooms.forEach(drawText);
+      // rooms.forEach(drawText);/
       drawPlayer();
     }
   }, [rooms, canvas_width, canvas_height, loc_x, loc_y]);
@@ -142,16 +142,16 @@ const Map = styled.div`
   justify-content: center;
   align-items: center;
 
-  height: 100%;
+  height: 100vh;
   width: 100%;
 
   color: white;
-  background: ${theme1.onyx};
+  background: ${theme1.nightGreen};
 
   .map-container {
     /* border: 1px solid blue; */
     width: 100%;
-    height: 100%;
+    height: 90vh;
 
     canvas {
       width: 100%;

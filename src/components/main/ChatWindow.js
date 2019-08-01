@@ -38,7 +38,9 @@ export class ChatWindow extends Component {
   }
 
   handleChange = e => {
-    this.setState({ message: e.target.value });
+    this.setState({
+      message: e.target.value.substring(4, e.target.value.length)
+    });
   };
 
   sendToPusherServer = message => {
@@ -72,8 +74,11 @@ export class ChatWindow extends Component {
           chatContent={this.state.pusherRoomChatContent}
         />
         <StyledLower>
-          <input value={this.state.message} onChange={this.handleChange} />
-          <button
+          <input
+            value={">>> " + this.state.message}
+            onChange={this.handleChange}
+          />
+          {/* <button
             onClick={() => {
               this.sendToPusherServer(
                 JSON.stringify({ message: this.state.message })
@@ -81,7 +86,7 @@ export class ChatWindow extends Component {
             }}
           >
             Send
-          </button>
+          </button> */}
         </StyledLower>
       </StyledChatWindow>
     );
@@ -107,18 +112,22 @@ const StyledChatWindow = styled.div`
   box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1);
   height: 470px;
   padding: 10px;
-  margin: 1%;
 
   .styled-list-container {
     height: 85%;
   }
 
   input {
-    border-radius: 10px;
-    border: 1px solid gray;
-    height: 10px;
+    background: ${theme1.nightGreen};
+    color: ${theme1.silverSand};
+    border-radius: 0px;
+    /* border: 1px solid ${theme1.silverSand}; */
+    border: none;
+    border-bottom: 1px solid ${theme1.silverSand};
     width: auto;
-    padding: 10px 20px;
+    padding: 10px 5px 0 5px;
+
+    font-size: 2rem;
   }
 
   button {
@@ -138,4 +147,5 @@ const StyledChatWindow = styled.div`
 const StyledLower = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;

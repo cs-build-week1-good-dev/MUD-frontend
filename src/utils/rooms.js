@@ -47,7 +47,8 @@ export function forEachNode(arr, cb = null) {
 
   console.log({ arr });
 
-  let key = Math.floor(Math.random() * 16777215 * 2).toString(16);
+  // this generate a random 12 digit hex value
+  let key = Math.floor(Math.random() * 281474976710655).toString(16);
 
   let queue = [arr[0]];
   let count = 0;

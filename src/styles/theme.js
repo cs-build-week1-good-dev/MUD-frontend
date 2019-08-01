@@ -24,8 +24,9 @@ export const colors = {
 export const theme1 = {
   teaRose: "#EFC7C2",
   onyx: "#363946",
-  taupe: "#000A00", //"#857C8D",
-  lumber: "#000A00", // "#FFE5D4",
+  taupe: "#857C8D",
+  lumber: "#FFE5D4",
   silverSand: "#BFD3C1",
-  darkSeaGreen: "#92B596"
+  darkSeaGreen: "#92B596",
+  nightGreen: "#000A00"
 };
