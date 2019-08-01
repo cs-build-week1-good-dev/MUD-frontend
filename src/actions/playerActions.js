@@ -98,10 +98,7 @@ export const getRooms = () => dispatch => {
     .get(`${BASE_URL}/adv/rooms/`, getAuthHeaders())
     .then(res => {
       const rooms = res.data;
-      console.log(rooms);
       let graphArray = arrayToGraph(rooms);
-
-      forEachNode(graphArray);
 
       dispatch({
         type: GET_ROOMS_SUCCESS,

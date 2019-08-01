@@ -45,6 +45,8 @@ export function forEachNode(arr, cb = null) {
 
   cb = cb || _cb;
 
+  console.log({ arr });
+
   let queue = [arr[0]];
 
   while (queue.length > 0) {
