@@ -9,7 +9,7 @@ class GraphNode {
     this.s_to = room.s_to ? room.s_to - adjust_id : null;
     this.x = room.x_coordinate;
     this.y = room.y_coordinate;
-    this.drawn = false;
+    this.drawn = 0;
   }
 }
 
@@ -47,26 +47,48 @@ export function forEachNode(arr, cb = null) {
 
   console.log({ arr });
 
-  let queue = [arr[0]];
+  let key = Math.floor(Math.random() * 16777215 * 2).toString(16);
 
-  while (queue.length > 0) {
+  let queue = [arr[0]];
+  let count = 0;
+
+  do {
     let node = queue.shift();
     // draw the node,
+    count += 1;
 
     cb(node);
-    node.drawn = true;
+    node.drawn = key;
     // add the nodes neighbors to queue if they haven't been visited
-    if (node.n_to !== null && node.n_to.drawn === false) {
+    if (
+      node.n_to !== null &&
+      node.n_to.drawn !== key &&
+      !queue.includes(node.n_to)
+    ) {
       queue.push(node.n_to);
     }
-    if (node.w_to !== null && node.w_to.drawn === false) {
+    if (
+      node.w_to !== null &&
+      node.w_to.drawn !== key &&
+      !queue.includes(node.w_to)
+    ) {
       queue.push(node.w_to);
     }
-    if (node.e_to !== null && node.e_to.drawn === false) {
+    if (
+      node.e_to !== null &&
+      node.e_to.drawn !== key &&
+      !queue.includes(node.e_to)
+    ) {
       queue.push(node.e_to);
     }
-    if (node.s_to !== null && node.s_to.drawn === false) {
+    if (
+      node.s_to !== null &&
+      node.s_to.drawn !== key &&
+      !queue.includes(node.s_to)
+    ) {
       queue.push(node.s_to);
     }
-  }
+  } while (queue.length > 0);
+
+  console.log(count);
 }
