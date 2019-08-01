@@ -13,11 +13,8 @@ function MainPage(props) {
   const worldMap = useRef(null);
   const container = useRef(null);
 
-  console.log(container);
-
   let canvas_width = container.current && container.current.offsetWidth;
   let canvas_height = container.current && container.current.offsetHeight;
-  console.log({ canvas_width, canvas_height });
 
   useEffect(() => {
     getRooms();
@@ -32,7 +29,7 @@ function MainPage(props) {
     const drawRooms = () => {
       const ctx = worldMap.current.getContext("2d");
 
-      function draw(room) {
+      function drawRoom(room) {
         ctx.lineWidth = 1;
         ctx.strokeStyle = theme1.silverSand;
         let x = room.x * (canvas_width / 10);
@@ -75,16 +72,37 @@ function MainPage(props) {
         ctx.fillText(room.id + 184, ...roomCenter);
       }
 
+      function drawPlayer() {
+        if (props.loc["x"] === null || props.loc["y"] === null) {
+          return;
+        }
+        let x = props.loc["x"] * (canvas_width / 10);
+        let y = props.loc["y"] * (canvas_height / 10);
+        let [cx, cy] = [x + canvas_width / 24, y + canvas_height / 24];
+        // console.log({ cx, cy });
+        var gradient = ctx.createRadialGradient(cx, cy, 30, cx, cy, 120);
+        // console.log(gradient);
+
+        // Add three color stops
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(1, "black");
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas_width, canvas_height);
+
+        // ctx.dra;
+      }
+
       if (rooms.length > 0) {
-        forEachNode(rooms, draw);
-        // forEachNode(rooms, drawText);
+        forEachNode(rooms, drawRoom);
         rooms.forEach(drawText);
+        drawPlayer();
         // rooms.forEach(draw);
       }
     };
 
     drawRooms();
-  }, [rooms, canvas_width, canvas_height]);
+  }, [rooms, canvas_width, canvas_height, props.loc]);
 
   return (
     <Map>
@@ -97,7 +115,13 @@ function MainPage(props) {
 
 export default connect(
   state => ({
-    rooms: state.player.rooms
+    rooms: state.player.rooms,
+    name: state.player.name,
+    loc: {
+      x: state.player.x_coordinate,
+      y: state.player.y_coordinate
+    },
+    title: state.player.title
     // player: state.player.player
   }),
   {

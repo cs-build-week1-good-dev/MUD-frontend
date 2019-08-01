@@ -15,10 +15,8 @@ class GraphNode {
 
 export function arrayToGraph(arr) {
   //   let sorted = arr.sort((i1, i2) => i1.pk - i2.pk);
-  console.log({ arr });
   let adjustment = arr[0].id;
   let nodes = arr.map(a => new GraphNode(a, adjustment));
-  console.log({ adjustment });
   // Map over the original array and create an array of nodes
 
   nodes.forEach(node => {
