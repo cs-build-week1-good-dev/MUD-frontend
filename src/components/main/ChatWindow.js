@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { pushMessage } from "../../actions";
 import { MessageList } from "./MessageList";
 import { PUSHER_KEY } from "../../config";
+import { theme1 } from "../../styles/theme";
 
 export class ChatWindow extends Component {
   constructor() {
@@ -41,6 +42,7 @@ export class ChatWindow extends Component {
   };
 
   sendToPusherServer = message => {
+    console.log("PROPPPS", this.props);
     this.props.pushMessage(message).then(this.autoscroll());
     this.setState({ message: "" });
   };
@@ -69,16 +71,18 @@ export class ChatWindow extends Component {
           className="messageList"
           chatContent={this.state.pusherRoomChatContent}
         />
-        <input value={this.state.message} onChange={this.handleChange} />
-        <button
-          onClick={() => {
-            this.sendToPusherServer(
-              JSON.stringify({ message: this.state.message })
-            );
-          }}
-        >
-          Send
-        </button>
+        <StyledLower>
+          <input value={this.state.message} onChange={this.handleChange} />
+          <button
+            onClick={() => {
+              this.sendToPusherServer(
+                JSON.stringify({ message: this.state.message })
+              );
+            }}
+          >
+            Send
+          </button>
+        </StyledLower>
       </StyledChatWindow>
     );
   }
@@ -99,11 +103,11 @@ export default connect(
 )(ChatWindow);
 
 const StyledChatWindow = styled.div`
-  width: 270px;
-  border: 1px solid black;
-  border-radius: 4px;
+  width: auto;
+  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1);
   height: 470px;
-  margin: 200px auto;
+  padding: 10px;
+  margin: 1%;
 
   .styled-list-container {
     height: 85%;
@@ -111,25 +115,27 @@ const StyledChatWindow = styled.div`
 
   input {
     border-radius: 10px;
-
     border: 1px solid gray;
-
-    height: 22px;
-
-    width: 44%;
-
-    padding: 5px 20px;
+    height: 10px;
+    width: auto;
+    padding: 10px 20px;
   }
 
   button {
     border-radius: 10px;
-
     padding: 10px;
-
     margin: 0px 5px;
-
-    background: lightblue;
-
+    background: ${theme1.taupe};
+    transition: 0.2s ease-in;
     border: none;
+    &:hover {
+      cursor: pointer;
+      box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.9);
+    }
   }
+`;
+
+const StyledLower = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

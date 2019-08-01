@@ -1,40 +1,65 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import { theme1 } from "../../styles/theme";
+import ChatWindow from "./ChatWindow";
+import { connect } from "react-redux";
+import { pushMessage } from "../../actions";
 
-function ActionBar(props) {
-  return (
-    <Bar>
-      <div className="Details">
-        <h3>Room Details</h3>
-        <h4>Room name</h4>
-        <p>Issa room with some stuff inna thing and its dope.</p>
-      </div>
-      <div className="actions">
-        <div className="top-button">
-          <button>N</button>
+class ActionBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      username: "robot124dustinrobo",
+      password1: "testpassword35",
+      password2: "testpassword35"
+    };
+  }
+  render() {
+    return (
+      <Bar>
+        <div className="Details">
+          <h3>Room Details</h3>
+          <h4>Room name</h4>
+          <p>Issa room with some stuff inna thing and its dope.</p>
         </div>
-        <div className="mid-button">
-          <button>W</button>
 
-          {/* <div class="triangle-container">
+        <ChatWindow props={this.props} />
+
+        <div className="actions">
+          <div className="top-button">
+            <button>N</button>
+          </div>
+          <div className="mid-button">
+            <button>W</button>
+
+            {/* <div class="triangle-container">
             <svg>
               <polygon points="250,60 100,400 400,400" class="triangle" />
               Sorry, your browser does not support inline SVG.
             </svg>
           </div> */}
 
-          <button>E</button>
+            <button>E</button>
+          </div>
+          <div className="btm-button">
+            <button>S</button>
+          </div>
         </div>
-        <div className="btm-button">
-          <button>S</button>
-        </div>
-      </div>
-    </Bar>
-  );
+      </Bar>
+    );
+  }
 }
 
-export default ActionBar;
+const mapStateToProps = state => {
+  return {
+    pusherReducer: state.pusherReducer.pusherFetch
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { pushMessage }
+)(ActionBar);
 
 const Bar = styled.div`
   color: white;

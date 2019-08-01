@@ -13,7 +13,7 @@ export const initializePlayer = () => dispatch => {
   });
 
   axios
-    .get(`${BASE_URL}/adv/init`, getAuthHeaders())
+    .get(`${BASE_URL}/adv/init/`, getAuthHeaders())
     .then(res => {
       dispatch({
         type: INIT_PLAYER_SUCCESS,
@@ -43,7 +43,7 @@ export const movePlayer = direction => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/adv/move`, { direction }, getAuthHeaders())
+    .post(`${BASE_URL}/adv/move/`, { direction }, getAuthHeaders())
     .then(res => {
       dispatch({
         type: MOVE_PLAYER_SUCCESS,
@@ -69,7 +69,7 @@ export const playerSays = message => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/adv/say`, { message }, getAuthHeaders())
+    .post(`${BASE_URL}/adv/say/`, { message }, getAuthHeaders())
     .then(res => {
       dispatch({
         type: PLAYER_SAYS_SUCCESS,
@@ -94,25 +94,29 @@ export const getRooms = () => dispatch => {
     type: GET_ROOMS
   });
 
-  axios.get(`${BASE_URL}/adv/rooms/`, getAuthHeaders()).then(res => {
-    const rooms = res.data.rooms;
-    const data = typeof rooms === "string" ? JSON.parse(rooms) : null;
-    console.log(data);
-    console.log(res);
+  axios
+    .get(`${BASE_URL}/adv/rooms/`, getAuthHeaders())
+    .then(res => {
+      const rooms = res.data;
+      let graphArray = arrayToGraph(rooms);
 
-    forEachNode(arrayToGraph(data));
-
-    dispatch({
-      type: GET_ROOMS_SUCCESS,
-      payload: arrayToGraph(data)
+      dispatch({
+        type: GET_ROOMS_SUCCESS,
+        payload: graphArray
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ROOMS_FAILURE,
+        error: err
+      });
     });
-  });
-  // .catch(err => {
-  //   console.log(err);
-  //   throw new Error(err);
-  //   dispatch({
-  //     type: GET_ROOMS_FAILURE,
-  //     error: err
-  //   });
-  // });
 };
+// .catch(err => {
+//   console.log(err);
+//   throw new Error(err);
+//   dispatch({
+//     type: GET_ROOMS_FAILURE,
+//     error: err
+//   });
+// });
