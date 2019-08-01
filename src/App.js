@@ -1,5 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import ChatWindow from "../src/components/main/ChatWindow";
+import { pushMessage } from "../src/actions";
 import PrivateRoute from "./components/PrivateRouter";
 import Login from "./components/Login-Register/Login";
 import Register from "./components/Login-Register/Register";
@@ -7,9 +10,9 @@ import MainView from "./components/views/MainView";
 import styled from "styled-components";
 import { theme1 } from "./styles/theme.js";
 
-export default function(props) {
+function App({ props }) {
   return (
-    <App className="App">
+    <StyledApp className="App">
       <Route
         exact
         path="/"
@@ -17,11 +20,22 @@ export default function(props) {
       />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      <Route path="/adv" component={MainView} />
-    </App>
+      <PrivateRoute path="/adv" component={MainView} />
+    </StyledApp>
   );
 }
 
-const App = styled.div`
+function mapStateToProps(state) {
+  return {
+    pusherReducer: state.pusherReducer.pusherFetch
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  { pushMessage }
+)(App);
+
+const StyledApp = styled.div`
   background: ${theme1.onyx};
 `;

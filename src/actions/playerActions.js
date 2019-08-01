@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL, getAuthHeaders } from "../config";
+import { arrayToGraph, forEachNode } from "../utils/rooms";
 
 // INIT_PLAYER, INIT_PLAYER_SUCCESS, INIT_PLAYER_FAILURE
 export const INIT_PLAYER = "INIT_PLAYER";
@@ -81,4 +82,37 @@ export const playerSays = message => dispatch => {
         error: err
       });
     });
+};
+
+// GET_ROOMS, GET_ROOMS_SUCCESS, GET_ROOMS_FAILURE
+export const GET_ROOMS = "GET_ROOMS";
+export const GET_ROOMS_SUCCESS = "GET_ROOMS_SUCCESS";
+export const GET_ROOMS_FAILURE = "GET_ROOMS_FAILURE";
+
+export const getRooms = () => dispatch => {
+  dispatch({
+    type: GET_ROOMS
+  });
+
+  axios.get(`${BASE_URL}/adv/rooms/`, getAuthHeaders()).then(res => {
+    const rooms = res.data.rooms;
+    const data = typeof rooms === "string" ? JSON.parse(rooms) : null;
+    console.log(data);
+    console.log(res);
+
+    forEachNode(arrayToGraph(data));
+
+    dispatch({
+      type: GET_ROOMS_SUCCESS,
+      payload: arrayToGraph(data)
+    });
+  });
+  // .catch(err => {
+  //   console.log(err);
+  //   throw new Error(err);
+  //   dispatch({
+  //     type: GET_ROOMS_FAILURE,
+  //     error: err
+  //   });
+  // });
 };
