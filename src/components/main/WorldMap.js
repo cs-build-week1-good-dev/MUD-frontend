@@ -20,13 +20,14 @@ function MainPage(props) {
       if (!worldMap.current) {
         return;
       }
-      const ctx = worldMap.current.getContext("2d");
-      ctx.fillStyle = "red";
-      for (let room of rooms) {
-        let x = room.x * 20;
-        let y = room.y * 20;
 
-        ctx.fillRect(x, y, 15, 15);
+      const ctx = worldMap.current.getContext("2d");
+      ctx.fillStyle = theme1.silverSand;
+      for (let room of rooms) {
+        let x = room.x * 24;
+        let y = room.y * 24;
+
+        ctx.fillRect(x, y, 20, 20);
       }
     };
 
@@ -34,7 +35,7 @@ function MainPage(props) {
   }, [rooms]);
 
   return (
-    <Map>
+    <Map id="world-map">
       <h1>Dis A Nice Map</h1>
       <canvas ref={worldMap} width={800} height={535} />
     </Map>
