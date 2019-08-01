@@ -1,38 +1,40 @@
 class GraphNode {
-  constructor(obj) {
-    let room = obj.fields;
-
-    this.id = obj.pk;
+  constructor(room, adjust_id = 0) {
+    this.id = room.id - adjust_id;
     this.title = room.title;
-    this.description = room.description;
-    this.e_to = room.e_to || null;
-    this.w_to = room.w_to || null;
-    this.n_to = room.n_to || null;
-    this.s_to = room.s_to || null;
+    // this.description = room.description;
+    this.e_to = room.e_to ? room.e_to - adjust_id : null;
+    this.w_to = room.w_to ? room.w_to - adjust_id : null;
+    this.n_to = room.n_to ? room.n_to - adjust_id : null;
+    this.s_to = room.s_to ? room.s_to - adjust_id : null;
+    this.x = room.x_coordinate;
+    this.y = room.y_coordinate;
     this.drawn = false;
   }
 }
 
 export function arrayToGraph(arr) {
-  let sorted = arr.sort((i1, i2) => i1.pk - i2.pk);
-  let nodes = sorted.map(a => new GraphNode(a));
+  //   let sorted = arr.sort((i1, i2) => i1.pk - i2.pk);
+  let adjustment = arr[0].id;
+  let nodes = arr.map(a => new GraphNode(a, adjustment));
   // Map over the original array and create an array of nodes
 
   nodes.forEach(node => {
     if (node.n_to !== null) {
-      node.n_to = nodes[node.n_to - 1];
+      node.n_to = nodes[node.n_to];
     }
     if (node.w_to !== null) {
-      node.w_to = nodes[node.w_to - 1];
+      node.w_to = nodes[node.w_to];
     }
     if (node.e_to !== null) {
-      node.e_to = nodes[node.e_to - 1];
+      node.e_to = nodes[node.e_to];
     }
     if (node.s_to !== null) {
-      node.s_to = nodes[node.s_to - 1];
+      node.s_to = nodes[node.s_to];
     }
   });
 
+  console.log("Nodes\n", nodes);
   return nodes;
 }
 

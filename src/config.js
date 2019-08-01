@@ -1,5 +1,5 @@
 export const AUTH_TOKEN = "mud-token";
-export const BASE_URL = "https://lambda-mud-test.herokuapp.com/api";
+export const BASE_URL = "http://mud-app.herokuapp.com/api";
 
 export const getAuthHeaders = () => {
   let token = localStorage.getItem(AUTH_TOKEN);
