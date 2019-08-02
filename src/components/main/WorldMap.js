@@ -82,19 +82,23 @@ function MainPage(props) {
       let y = loc_y * (canvas_height / 10);
       let [cx, cy] = [x + 6 + canvas_width / 24, y + 6 + canvas_height / 24];
 
-      // console.log({ cx, cy });
-      var gradient = ctx.createRadialGradient(cx, cy, 30, cx, cy, 150);
-      // console.log(gradient);
+      const createGradient = () => {
+        // console.log({ cx, cy });
+        var gradient = ctx.createRadialGradient(cx, cy, 30, cx, cy, 150);
+        // console.log(gradient);
 
-      // Add three color stops
-      gradient.addColorStop(0, "transparent");
-      gradient.addColorStop(0.2, "rgba(20,30,20, .3)");
-      gradient.addColorStop(0.4, "rgba(20,30,20, .9)");
+        // Add three color stops
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(0.2, "rgba(20,30,20, .3)");
+        gradient.addColorStop(0.4, "rgba(20,30,20, .9)");
 
-      gradient.addColorStop(1, "rgb(0, 10, 0)");
+        gradient.addColorStop(1, "rgb(0, 10, 0)");
 
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas_width, canvas_height);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas_width, canvas_height);
+      };
+
+      createGradient();
 
       ctx.beginPath();
       ctx.strokeStyle = theme1.onyx;
