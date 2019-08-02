@@ -27,5 +27,6 @@ export const theme1 = {
   taupe: "#857C8D",
   lumber: "#FFE5D4",
   silverSand: "#BFD3C1",
-  darkSeaGreen: "#92B596"
+  darkSeaGreen: "#92B596",
+  nightGreen: "#000A00"
 };

@@ -11,7 +11,6 @@ class MainView extends Component {
       <Main>
         <div className="left">
           <WorldMap />
-          <BottomBar />
         </div>
         <div className="right">
           <SideBar />
@@ -31,9 +30,11 @@ const Main = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   background: black;
+
+  overflow: none;
 
   .left {
     height: 100%;
@@ -42,8 +43,8 @@ const Main = styled.div`
     flex-direction: column;
   }
   .right {
-    height: 100%;
+    height: 100vh;
     width: 20%;
-    max-width: 200px;
+    /* min-width: 400px; */
   }
 `;

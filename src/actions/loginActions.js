@@ -14,7 +14,7 @@ export const doLogin = creds => dispatch => {
   });
 
   axios
-    .post(`${LOCAL_BASE_URL}/login/`, { username, password })
+    .post(`${BASE_URL}/login/`, { username, password })
     .then(res => {
       localStorage.setItem(AUTH_TOKEN, res.data.key);
       dispatch({
@@ -44,7 +44,7 @@ export const doRegister = creds => dispatch => {
   });
 
   axios
-    .post(`${LOCAL_BASE_URL}/registration/`, { username, password1, password2 })
+    .post(`${BASE_URL}/registration/`, { username, password1, password2 })
     .then(res => {
       localStorage.setItem(AUTH_TOKEN, res.data.key);
       dispatch({

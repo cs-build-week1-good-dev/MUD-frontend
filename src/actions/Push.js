@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_TOKEN } from "../config";
+import { BASE_URL, getAuthHeaders } from "../config";
 export const PUSHER_SEND_START = "PUSHER_SEND_START";
 export const PUSHER_SEND_SUCCESS = "PUSHER_SEND_SUCCESS";
 export const PUSHER_SEND_FAILURE = "PUSHER_SEND_FAILURE";
@@ -8,12 +8,11 @@ export const pushMessage = message => dispatch => {
   const body = message;
   dispatch({ type: PUSHER_SEND_START });
   return axios
-    .post("http://localhost:8000/api/adv/say/", body, {
+    .post(`${BASE_URL}/adv/say/`, body, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        // Authorization: `Token ${localStorage.getItem(AUTH_TOKEN)}`
-        Authorization: "Token d0dc8efe41fa45b9c746946eeb9e48f861497eb6"
+        ...getAuthHeaders()
       }
     })
     .then(res => {

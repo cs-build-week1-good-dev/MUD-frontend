@@ -17,51 +17,67 @@ export class ChatWindow extends Component {
   }
 
   componentDidMount() {
-    const pusher = new Pusher(PUSHER_KEY, {
-      cluster: "us3",
-      forceTLS: true //encrypted??
-    });
+    this.setEnterKeyListener();
+  }
 
-    const channel = pusher.subscribe(
-      "p-channel-705c41bd-74dc-44df-9861-47908d9cedb6"
-    ); //props will need to update the room id when a user moves "`p-channel-${channel-id-prop}`"
-
-    //channel is the room you are currently subscribed to
-
-    //below updates this component with latest chat data
-    channel.bind("broadcast", data => {
-      console.log(data);
-      this.setState({
-        pusherRoomChatContent: [...this.state.pusherRoomChatContent, data],
-        test: ""
-      });
+  setEnterKeyListener() {
+    var input = document.querySelector(".chat-input");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector(".send-chat-btn").click();
+      }
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.uuid !== this.props.uuid) {
+      const pusher = new Pusher(PUSHER_KEY, {
+        cluster: "us3",
+        forceTLS: true //encrypted??
+      });
+
+      const channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
+      //channel is your personal player channel from pusher.  Messages are broadcasted to player channels that share a current room.
+      console.log({ channel });
+
+      //below updates this component with latest chat data
+      channel.bind("broadcast", data => {
+        console.log({ data });
+        this.setState({
+          pusherRoomChatContent: [...this.state.pusherRoomChatContent, data],
+          test: ""
+        });
+      });
+    }
+
+    //check if new x,y coord, if both true clear chat data
+    if (
+      prevProps.x_coord !== this.props.x_coord ||
+      prevProps.y_coord !== this.props.y_coord
+    ) {
+      console.log("They are differet!");
+      this.setState({
+        pusherRoomChatContent: [],
+        message: ""
+      });
+    }
+  }
+
   handleChange = e => {
-    this.setState({ message: e.target.value });
+    this.setState({
+      message: e.target.value.substring(4, e.target.value.length)
+    });
   };
 
   sendToPusherServer = message => {
-    this.props.pushMessage(message).then(this.autoscroll());
+    console.log("PROPPPS", this.props);
+    this.props
+      .pushMessage(message)
+      .then(console.log)
+      .catch(console.log);
+    // this.props.pushMessage(message).then(this.autoscroll())
     this.setState({ message: "" });
-  };
-  //attempting to autoscroll
-  autoscroll = e => {
-    //
-
-    let elements = document.querySelectorAll(".stamp");
-    if (elements.length === 0) {
-      let scrollable_list = document.querySelector(".scrollable-list");
-      scrollable_list.scrollTop = scrollable_list.scrollHeight;
-    } else {
-      let last_element = elements[elements.length - 1];
-      console.log(elements);
-      last_element.scrollIntoView();
-      console.log("Scrollinto VIEW");
-    }
-
-    //
   };
 
   render() {
@@ -72,8 +88,13 @@ export class ChatWindow extends Component {
           chatContent={this.state.pusherRoomChatContent}
         />
         <StyledLower>
-          <input value={this.state.message} onChange={this.handleChange} />
+          <input
+            className="chat-input"
+            value={">>> " + this.state.message}
+            onChange={this.handleChange}
+          />
           <button
+            className="send-chat-btn"
             onClick={() => {
               this.sendToPusherServer(
                 JSON.stringify({ message: this.state.message })
@@ -93,8 +114,10 @@ const mapStateToProps = state => {
     pushStart: state.pusherReducer.pusherFetch,
     pushSuccess: state.pusherReducer.pusherSuccess,
     pushFailure: state.pusherReducer.pusherFailure,
+    chatData: state.pusherReducer.data,
     uuid: state.player.uuid,
-    chatData: state.pusherReducer.data
+    x_coord: state.player.x_coordinate,
+    y_coord: state.player.y_coordinate
   };
 };
 
@@ -105,24 +128,29 @@ export default connect(
 
 const StyledChatWindow = styled.div`
   width: auto;
-  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1);
-  height: 470px;
+  ${"" /* box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1); */}
+  height: 45vh;
   padding: 10px;
-  margin: 1%;
 
   .styled-list-container {
     height: 85%;
   }
 
   input {
-    border-radius: 10px;
-    border: 1px solid gray;
-    height: 10px;
+    background: ${theme1.nightGreen};
+    color: ${theme1.silverSand};
+    border-radius: 0px;
+    /* border: 1px solid ${theme1.silverSand}; */
+    border: none;
+    border-bottom: 1px solid ${theme1.silverSand};
     width: auto;
-    padding: 10px 20px;
+    padding: 10px 5px 0 5px;
+
+    font-size: 2rem;
   }
 
   button {
+    visibility:hidden;
     border-radius: 10px;
     padding: 10px;
     margin: 0px 5px;
@@ -139,4 +167,5 @@ const StyledChatWindow = styled.div`
 const StyledLower = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
