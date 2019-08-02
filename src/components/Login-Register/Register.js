@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { doRegister } from "../../actions";
 import styled from "styled-components";
 import { theme1 } from "../../styles/theme.js";
@@ -39,6 +40,10 @@ class Register extends Component {
   };
 
   render() {
+    if (this.props.token) {
+      return <Redirect to="/adv" />;
+    }
+
     return (
       <CenteredDiv>
         <AuthCard>
@@ -80,7 +85,9 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = () => {};
+const mapStateToProps = state => ({
+  token: state.login.token
+});
 
 export default connect(
   mapStateToProps,

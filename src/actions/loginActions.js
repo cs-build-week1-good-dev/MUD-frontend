@@ -43,6 +43,8 @@ export const doRegister = creds => dispatch => {
     type: REGISTER_USER
   });
 
+  console.log(creds);
+
   axios
     .post(`${BASE_URL}/registration/`, { username, password1, password2 })
     .then(res => {
