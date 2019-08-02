@@ -16,8 +16,10 @@ class ActionBar extends Component {
     return (
       <Bar>
         <div className="details">
-          <h3>In Room</h3>
-          <div>This will be some payer names</div>
+          <h3>In {this.props.currentRoom}:</h3>
+          <ul>
+            {this.props.playersInRoom.map(player => <li>{player}</li>)}
+          </ul>
         </div>
 
         <ChatWindow props={this.props} />
@@ -42,7 +44,9 @@ class ActionBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    pusherReducer: state.pusherReducer.pusherFetch
+    pusherReducer: state.pusherReducer.pusherFetch,
+    currentRoom: state.player.title,
+    playersInRoom: state.player.players
   };
 };
 
@@ -54,11 +58,20 @@ export default connect(
 const Bar = styled.div`
   background: ${theme1.nightGreen};
   color: ${theme1.silverSand};
-  height: 100vh;
-
+  max-height: 100vh;
+  text-shadow: 0 0 5px white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  ul{
+    max-height: 20vh;
+    overflow: hidden;
+    
+    li{
+      font-size:1.2rem;
+    }
+  }
 
   .details {
     padding: 10px;
@@ -73,6 +86,7 @@ const Bar = styled.div`
     text-align: center;
 
     padding: 25px;
+    height: 27vh;
 
     .mid-button {
       display: flex;

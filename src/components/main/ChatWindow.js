@@ -110,7 +110,7 @@ export default connect(
 const StyledChatWindow = styled.div`
   width: auto;
   box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1);
-  height: 470px;
+  height: 45vh;
   padding: 10px;
 
   .styled-list-container {
