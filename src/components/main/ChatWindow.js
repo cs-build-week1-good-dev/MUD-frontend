@@ -16,26 +16,26 @@ export class ChatWindow extends Component {
     };
   }
 
-  componentDidMount() {
-    const pusher = new Pusher(PUSHER_KEY, {
-      cluster: "us3",
-      forceTLS: true //encrypted??
-    });
-
-    const channel = pusher.subscribe(
-      "p-channel-0a750788-631d-4116-82a5-89df8550b40d"
-    ); //props will need to update the room id when a user moves "`p-channel-${channel-id-prop}`"
-    //channel is the room you are currently subscribed to
-    console.log({ channel });
-
-    //below updates this component with latest chat data
-    channel.bind("broadcast", data => {
-      console.log({ data });
-      this.setState({
-        pusherRoomChatContent: [...this.state.pusherRoomChatContent, data],
-        test: ""
+  componentDidUpdate(prevProps) {
+    if (prevProps.uuid !== this.props.uuid) {
+      const pusher = new Pusher(PUSHER_KEY, {
+        cluster: "us3",
+        forceTLS: true //encrypted??
       });
-    });
+
+      const channel = pusher.subscribe(`p-channel-${this.props.uuid}`); //props will need to update the room id when a user moves "`p-channel-${channel-id-prop}`"
+      //channel is the room you are currently subscribed to
+      console.log({ channel });
+
+      //below updates this component with latest chat data
+      channel.bind("broadcast", data => {
+        console.log({ data });
+        this.setState({
+          pusherRoomChatContent: [...this.state.pusherRoomChatContent, data],
+          test: ""
+        });
+      });
+    }
   }
 
   handleChange = e => {
@@ -53,6 +53,7 @@ export class ChatWindow extends Component {
     // this.props.pushMessage(message).then(this.autoscroll())
     this.setState({ message: "" });
   };
+
   //attempting to autoscroll
   autoscroll = e => {
     //
@@ -103,7 +104,8 @@ const mapStateToProps = state => {
     pushStart: state.pusherReducer.pusherFetch,
     pushSuccess: state.pusherReducer.pusherSuccess,
     pushFailure: state.pusherReducer.pusherFailure,
-    chatData: state.pusherReducer.data
+    chatData: state.pusherReducer.data,
+    uuid: state.player.uuid
   };
 };
 
