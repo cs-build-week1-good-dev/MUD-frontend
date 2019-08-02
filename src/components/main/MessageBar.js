@@ -63,6 +63,14 @@ const Bar = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
+
+  h3{
+    margin-bottom: 11px;
+    position: sticky;
+
+    top: 0;
+  }
 
   ul{
     max-height: 20vh;
@@ -70,11 +78,21 @@ const Bar = styled.div`
     
     li{
       font-size:1.2rem;
+      padding: 4px;
+      background: #282828f2;
+      display: inline-block;
+      margin: 2px;
+      border-radius: 5px;
+      border-bottom: 1px solid #00800040;
+
+}
     }
   }
 
   .details {
     padding: 10px;
+    height: 26%;
+    overflow-y: scroll;
   }
 
   .actions {

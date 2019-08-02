@@ -88,9 +88,8 @@ function MainPage(props) {
 
       // Add three color stops
       gradient.addColorStop(0, "transparent");
-
-      gradient.addColorStop(0.2, "rgba(20,30,20, 0.3)");
-      gradient.addColorStop(0.6, "rgba(20,30,20, 1)");
+      gradient.addColorStop(0.2, "rgba(20,30,20, .3)");
+      gradient.addColorStop(0.4, "rgba(20,30,20, .9)");
 
       gradient.addColorStop(1, "rgb(0, 10, 0)");
 
