@@ -78,7 +78,7 @@ export class ChatWindow extends Component {
             value={">>> " + this.state.message}
             onChange={this.handleChange}
           />
-          {/* <button
+          <button
             onClick={() => {
               this.sendToPusherServer(
                 JSON.stringify({ message: this.state.message })
@@ -86,7 +86,7 @@ export class ChatWindow extends Component {
             }}
           >
             Send
-          </button> */}
+          </button>
         </StyledLower>
       </StyledChatWindow>
     );
