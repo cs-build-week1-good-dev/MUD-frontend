@@ -43,7 +43,7 @@ const Main = styled.div`
     flex-direction: column;
   }
   .right {
-    height: 100%;
+    height: 100vh;
     width: 20%;
     /* min-width: 400px; */
   }

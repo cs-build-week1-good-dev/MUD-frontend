@@ -21,6 +21,7 @@ const Bar = styled.div`
 
   display: flex;
   align-items: center;
+  
 
   p {
     font-size: 2rem;

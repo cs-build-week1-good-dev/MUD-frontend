@@ -16,15 +16,30 @@ export class ChatWindow extends Component {
     };
   }
 
+  componentDidMount(){
+    this.setEnterKeyListener()
+  }
+
+  setEnterKeyListener() {
+    var input = document.querySelector(".chat-input");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector(".send-chat-btn").click();
+      }
+    });
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.uuid !== this.props.uuid) {
       const pusher = new Pusher(PUSHER_KEY, {
         cluster: "us3",
         forceTLS: true //encrypted??
-      });
+      })
 
-      const channel = pusher.subscribe(`p-channel-${this.props.uuid}`); //props will need to update the room id when a user moves "`p-channel-${channel-id-prop}`"
-      //channel is the room you are currently subscribed to
+      
+      const channel = pusher.subscribe(`p-channel-${this.props.uuid}`); 
+      //channel is your personal player channel from pusher.  Messages are broadcasted to player channels that share a current room.
       console.log({ channel });
 
       //below updates this component with latest chat data
@@ -36,6 +51,16 @@ export class ChatWindow extends Component {
         });
       });
     }
+
+    //check if new x,y coord, if both true clear chat data
+    if((prevProps.x_coord !== this.props.x_coord) || (prevProps.y_coord !== this.props.y_coord)){
+      console.log("They are differet!")
+      this.setState({
+        pusherRoomChatContent:[],
+        message:""
+      })
+    }
+  
   }
 
   handleChange = e => {
@@ -54,24 +79,7 @@ export class ChatWindow extends Component {
     this.setState({ message: "" });
   };
 
-  //attempting to autoscroll
-  autoscroll = e => {
-    //
-
-    let elements = document.querySelectorAll(".stamp");
-    if (elements.length === 0) {
-      let scrollable_list = document.querySelector(".scrollable-list");
-      scrollable_list.scrollTop = scrollable_list.scrollHeight;
-    } else {
-      let last_element = elements[elements.length - 1];
-      console.log(elements);
-      last_element.scrollIntoView();
-      console.log("Scrollinto VIEW");
-    }
-
-    //
-  };
-
+  
   render() {
     return (
       <StyledChatWindow>
@@ -80,11 +88,11 @@ export class ChatWindow extends Component {
           chatContent={this.state.pusherRoomChatContent}
         />
         <StyledLower>
-          <input
+          <input className="chat-input"
             value={">>> " + this.state.message}
             onChange={this.handleChange}
           />
-          <button
+          <button className="send-chat-btn"
             onClick={() => {
               this.sendToPusherServer(
                 JSON.stringify({ message: this.state.message })
@@ -105,7 +113,9 @@ const mapStateToProps = state => {
     pushSuccess: state.pusherReducer.pusherSuccess,
     pushFailure: state.pusherReducer.pusherFailure,
     chatData: state.pusherReducer.data,
-    uuid: state.player.uuid
+    uuid: state.player.uuid,
+    x_coord:state.player.x_coordinate,
+    y_coord:state.player.y_coordinate
   };
 };
 
@@ -116,7 +126,7 @@ export default connect(
 
 const StyledChatWindow = styled.div`
   width: auto;
-  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1);
+  ${'' /* box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1); */}
   height: 45vh;
   padding: 10px;
 
@@ -138,6 +148,7 @@ const StyledChatWindow = styled.div`
   }
 
   button {
+    visibility:hidden;
     border-radius: 10px;
     padding: 10px;
     margin: 0px 5px;
