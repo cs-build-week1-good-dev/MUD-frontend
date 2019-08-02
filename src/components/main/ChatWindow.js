@@ -23,13 +23,14 @@ export class ChatWindow extends Component {
     });
 
     const channel = pusher.subscribe(
-      "p-channel-705c41bd-74dc-44df-9861-47908d9cedb6"
+      "p-channel-0a750788-631d-4116-82a5-89df8550b40d"
     ); //props will need to update the room id when a user moves "`p-channel-${channel-id-prop}`"
     //channel is the room you are currently subscribed to
+    console.log({ channel });
 
     //below updates this component with latest chat data
     channel.bind("broadcast", data => {
-      console.log(data);
+      console.log({ data });
       this.setState({
         pusherRoomChatContent: [...this.state.pusherRoomChatContent, data],
         test: ""
@@ -45,7 +46,11 @@ export class ChatWindow extends Component {
 
   sendToPusherServer = message => {
     console.log("PROPPPS", this.props);
-    this.props.pushMessage(message).then(this.autoscroll());
+    this.props
+      .pushMessage(message)
+      .then(console.log)
+      .catch(console.log);
+    // this.props.pushMessage(message).then(this.autoscroll())
     this.setState({ message: "" });
   };
   //attempting to autoscroll
