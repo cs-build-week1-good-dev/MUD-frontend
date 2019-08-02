@@ -45,7 +45,11 @@ class Login extends Component {
       <CenteredDiv>
         <AuthCard>
           <StyledForm>
-            <StyledH2>Dope Login</StyledH2>
+            <StyledH2>
+              Welcome back to
+              <br />
+              the Void.
+            </StyledH2>
             <StyledInput
               type="text"
               placeholder="Username"
@@ -104,12 +108,21 @@ const StyledInput = styled.input`
   height: 40px;
   width: 268px;
   margin: 5px 0;
-  border: solid 1px #48484841;
+  border: solid 1px ${theme1.silverSand};
   border-radius: 4px;
+
+  background: rgba(0, 50, 0, 0.4);
+  color: ${theme1.silverSand};
+
+  &::placeholder {
+    color: ${theme1.silverSand};
+  }
 `;
 
 const StyledH2 = styled.h2`
-  color: ${theme1.onyx};
+  color: rgba(150, 50, 50, 1);
   font-size: 3rem;
   margin: 0;
+  text-align: center;
+  font-family: "Lacquer", sans-serif;
 `;

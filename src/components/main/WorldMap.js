@@ -104,7 +104,7 @@ function MainPage(props) {
     }
 
     if (rooms.length > 0) {
-      clear();
+      // clear();
       forEachNode(rooms, drawRoom);
       // rooms.forEach(drawRoom);
       // rooms.forEach(drawText);/

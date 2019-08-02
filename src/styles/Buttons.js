@@ -35,7 +35,7 @@ export const ButtonSmall = styled(Button)`
 
 export const ButtonSmallSubtle = styled(ButtonSmall)`
   background: transparent;
-  color: ${theme1.onyx};
+  color: ${theme1.silverSand};
   transition: background 0.2s, color 0.2s;
   font-weight: normal;
   &:hover {

@@ -43,7 +43,7 @@ class Register extends Component {
       <CenteredDiv>
         <AuthCard>
           <StyledForm className="FormRegister">
-            <StyledH2>Dope Register</StyledH2>
+            <StyledH2>Welcome to the Void.</StyledH2>
             <StyledInput
               type="text"
               placeholder="Enter New Username"
@@ -94,24 +94,34 @@ const StyledForm = styled.form`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+
+  /* border: 1px solid ${theme1.silverSand}; */
+  /* background: rgba(100, 250, 100, 0.4); */
 `;
 
 const StyledInput = styled.input`
   /* background-color: ${theme1.teaRose}; */
   color: ${theme1.onyx};
   font-size: 1.33rem;
-  border: none;
+  border: 1px solid ${theme1.silverSand};
   outline: none;
   text-align: center;
   height: 40px;
   width: 268px;
   margin: 5px 0;
-  border: solid 1px #48484841;
   border-radius: 4px;
+
+  background: rgba(0, 50, 0, 0.4);
+  color: ${theme1.silverSand};
+
+  &::placeholder {
+    color: ${theme1.silverSand};
+  }
 `;
 
 const StyledH2 = styled.h2`
-  color: ${theme1.onyx};
+  color: rgba(150, 50, 50, 1);
   font-size: 3rem;
   margin: 0;
+  font-family: "Lacquer", sans-serif;
 `;

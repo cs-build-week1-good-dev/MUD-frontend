@@ -23,4 +23,7 @@ export const AuthCard = styled(Card)`
   height: 400px;
   display: flex;
   justify-content: center;
+
+  background: rgba(0, 50, 0, 0.4);
+  border: 1px solid ${theme1.silverSand};
 `;

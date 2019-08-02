@@ -23,5 +23,5 @@ export default function(props) {
 }
 
 const App = styled.div`
-  background: ${theme1.onyx};
+  background: ${theme1.nightGreen};
 `;
