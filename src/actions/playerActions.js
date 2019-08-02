@@ -13,14 +13,16 @@ export const initializePlayer = () => dispatch => {
   });
 
   axios
-    .get(`${BASE_URL}/adv/init/`, getAuthHeaders())
+    .get(`${BASE_URL}/adv/init/`, { headers: getAuthHeaders() })
     .then(res => {
+      console.log(res);
       dispatch({
         type: INIT_PLAYER_SUCCESS,
-        payload: res
+        payload: res.data
       });
     })
     .catch(err => {
+      console.log(err);
       dispatch({
         type: INIT_PLAYER_FAILURE,
         error: err
@@ -43,7 +45,7 @@ export const movePlayer = direction => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/adv/move/`, { direction }, getAuthHeaders())
+    .post(`${BASE_URL}/adv/move/`, { direction }, { headers: getAuthHeaders() })
     .then(res => {
       dispatch({
         type: MOVE_PLAYER_SUCCESS,
@@ -69,7 +71,7 @@ export const playerSays = message => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/adv/say/`, { message }, getAuthHeaders())
+    .post(`${BASE_URL}/adv/say/`, { message }, { headers: getAuthHeaders() })
     .then(res => {
       dispatch({
         type: PLAYER_SAYS_SUCCESS,
@@ -95,7 +97,7 @@ export const getRooms = () => dispatch => {
   });
 
   axios
-    .get(`${BASE_URL}/adv/rooms/`, getAuthHeaders())
+    .get(`${BASE_URL}/adv/rooms/`, { headers: getAuthHeaders() })
     .then(res => {
       const rooms = res.data;
       let graphArray = arrayToGraph(rooms);

@@ -34,7 +34,7 @@ export function arrayToGraph(arr) {
     }
   });
 
-  console.log("Nodes\n", nodes);
+  // console.log("Nodes\n", nodes);
   return nodes;
 }
 
