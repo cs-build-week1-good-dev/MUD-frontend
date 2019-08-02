@@ -83,7 +83,7 @@ function MainPage(props) {
       let [cx, cy] = [x + 6 + canvas_width / 24, y + 6 + canvas_height / 24];
 
       // console.log({ cx, cy });
-      var gradient = ctx.createRadialGradient(cx, cy, 30, cx, cy, 300);
+      var gradient = ctx.createRadialGradient(cx, cy, 30, cx, cy, 150);
       // console.log(gradient);
 
       // Add three color stops

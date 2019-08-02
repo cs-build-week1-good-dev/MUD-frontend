@@ -16,8 +16,8 @@ export class ChatWindow extends Component {
     };
   }
 
-  componentDidMount(){
-    this.setEnterKeyListener()
+  componentDidMount() {
+    this.setEnterKeyListener();
   }
 
   setEnterKeyListener() {
@@ -35,10 +35,9 @@ export class ChatWindow extends Component {
       const pusher = new Pusher(PUSHER_KEY, {
         cluster: "us3",
         forceTLS: true //encrypted??
-      })
+      });
 
-      
-      const channel = pusher.subscribe(`p-channel-${this.props.uuid}`); 
+      const channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
       //channel is your personal player channel from pusher.  Messages are broadcasted to player channels that share a current room.
       console.log({ channel });
 
@@ -53,14 +52,16 @@ export class ChatWindow extends Component {
     }
 
     //check if new x,y coord, if both true clear chat data
-    if((prevProps.x_coord !== this.props.x_coord) || (prevProps.y_coord !== this.props.y_coord)){
-      console.log("They are differet!")
+    if (
+      prevProps.x_coord !== this.props.x_coord ||
+      prevProps.y_coord !== this.props.y_coord
+    ) {
+      console.log("They are differet!");
       this.setState({
-        pusherRoomChatContent:[],
-        message:""
-      })
+        pusherRoomChatContent: [],
+        message: ""
+      });
     }
-  
   }
 
   handleChange = e => {
@@ -79,7 +80,6 @@ export class ChatWindow extends Component {
     this.setState({ message: "" });
   };
 
-  
   render() {
     return (
       <StyledChatWindow>
@@ -88,11 +88,13 @@ export class ChatWindow extends Component {
           chatContent={this.state.pusherRoomChatContent}
         />
         <StyledLower>
-          <input className="chat-input"
+          <input
+            className="chat-input"
             value={">>> " + this.state.message}
             onChange={this.handleChange}
           />
-          <button className="send-chat-btn"
+          <button
+            className="send-chat-btn"
             onClick={() => {
               this.sendToPusherServer(
                 JSON.stringify({ message: this.state.message })
@@ -114,8 +116,8 @@ const mapStateToProps = state => {
     pushFailure: state.pusherReducer.pusherFailure,
     chatData: state.pusherReducer.data,
     uuid: state.player.uuid,
-    x_coord:state.player.x_coordinate,
-    y_coord:state.player.y_coordinate
+    x_coord: state.player.x_coordinate,
+    y_coord: state.player.y_coordinate
   };
 };
 
@@ -126,7 +128,7 @@ export default connect(
 
 const StyledChatWindow = styled.div`
   width: auto;
-  ${'' /* box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1); */}
+  ${"" /* box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 1); */}
   height: 45vh;
   padding: 10px;
 

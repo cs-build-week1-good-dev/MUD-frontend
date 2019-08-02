@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, AUTH_TOKEN } from "../config";
+import { BASE_URL, LOCAL_BASE_URL, AUTH_TOKEN } from "../config";
 
 // LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE
 export const LOGIN_USER = "LOGIN_USER";
