@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, getAuthHeaders } from "../config";
+import { BASE_URL, LOCAL_BASE_URL, getAuthHeaders } from "../config";
 import { arrayToGraph, forEachNode } from "../utils/rooms";
 
 // INIT_PLAYER, INIT_PLAYER_SUCCESS, INIT_PLAYER_FAILURE
@@ -15,7 +15,7 @@ export const initializePlayer = () => dispatch => {
   axios
     .get(`${BASE_URL}/adv/init/`, { headers: getAuthHeaders() })
     .then(res => {
-      console.log(res);
+      console.log("INIT ENDPOINT", res);
       dispatch({
         type: INIT_PLAYER_SUCCESS,
         payload: res.data

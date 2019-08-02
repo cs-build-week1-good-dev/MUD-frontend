@@ -12,7 +12,8 @@ export const pushMessage = message => dispatch => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem(AUTH_TOKEN)}`
+        // Authorization: `Token ${localStorage.getItem(AUTH_TOKEN)}`
+        Authorization: "Token d0dc8efe41fa45b9c746946eeb9e48f861497eb6"
       }
     })
     .then(res => {

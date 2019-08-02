@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, AUTH_TOKEN } from "../config";
+import { BASE_URL, LOCAL_BASE_URL, AUTH_TOKEN } from "../config";
 
 // LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE
 export const LOGIN_USER = "LOGIN_USER";
@@ -14,7 +14,7 @@ export const doLogin = creds => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/login/`, { username, password })
+    .post(`${LOCAL_BASE_URL}/login/`, { username, password })
     .then(res => {
       localStorage.setItem(AUTH_TOKEN, res.data.key);
       dispatch({
@@ -44,7 +44,7 @@ export const doRegister = creds => dispatch => {
   });
 
   axios
-    .post(`${BASE_URL}/registration/`, { username, password1, password2 })
+    .post(`${LOCAL_BASE_URL}/registration/`, { username, password1, password2 })
     .then(res => {
       localStorage.setItem(AUTH_TOKEN, res.data.key);
       dispatch({
